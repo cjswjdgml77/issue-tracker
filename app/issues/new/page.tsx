@@ -10,6 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { createIssueSchema } from "@/app/validationSchema";
 import { z } from "zod";
 import ErrorMessage from "@/app/components/ErrorMessage";
+import Spinner from "@/app/components/Spinner";
 
 type IssueForm = z.infer<typeof createIssueSchema>;
 
@@ -24,6 +25,7 @@ const NewIssuePage = () => {
     resolver: zodResolver(createIssueSchema),
   });
   const [error, setError] = useState("");
+  const [submitted, setSubmitted] = useState(false);
   return (
     <div className="max-w-xl">
       {error && (
@@ -36,9 +38,11 @@ const NewIssuePage = () => {
         className="space-y-3"
         onSubmit={handleSubmit(async (data) => {
           try {
+            setSubmitted(true);
             await axios.post("/api/issues", data);
             router.push("/issues");
           } catch (error) {
+            setSubmitted(false);
             setError("Unexpected error occurred");
           }
         })}
@@ -57,7 +61,9 @@ const NewIssuePage = () => {
         {errors.description && (
           <ErrorMessage>{errors.description?.message}</ErrorMessage>
         )}
-        <Button>Submit new issue</Button>
+        <Button disabled={submitted}>
+          Submit new issue {submitted && <Spinner />}
+        </Button>
       </form>
     </div>
   );
