@@ -2,6 +2,7 @@ import prisma from "@/prisma/client";
 import { Table } from "@radix-ui/themes";
 import { Link, IssueStatusBadge } from "@/app/components";
 import IssueActions from "./IssueActions";
+
 const IssuesPage = async () => {
   const issues = await prisma.issue.findMany();
   return (
@@ -42,5 +43,4 @@ const IssuesPage = async () => {
   );
 };
 export const dynamiv = "force-dynamic";
-// export const revalidate = 60;
 export default IssuesPage;
