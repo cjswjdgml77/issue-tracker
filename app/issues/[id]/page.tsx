@@ -1,6 +1,5 @@
 import prisma from "@/prisma/client";
 import { Box, Grid } from "@radix-ui/themes";
-import delay from "delay";
 import { notFound } from "next/navigation";
 import EditIssueBtn from "./EditIssueBtn";
 import IssueDetails from "./IssueDetails";
