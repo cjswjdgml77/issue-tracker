@@ -3,7 +3,6 @@ import { Button, Callout, TextField } from "@radix-ui/themes";
 import "easymde/dist/easymde.min.css";
 import dynamic from "next/dynamic";
 import { useForm, Controller } from "react-hook-form";
-// import SimpleMdeReact from "react-simplemde-editor";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
