@@ -41,5 +41,6 @@ const IssuesPage = async () => {
     </div>
   );
 };
-
+export const dynamiv = "force-dynamic";
+// export const revalidate = 60;
 export default IssuesPage;
