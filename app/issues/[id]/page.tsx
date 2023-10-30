@@ -7,19 +7,20 @@ import IssueDetails from "./IssueDetails";
 import { authOptions } from "@/app/auth/AuthOptions";
 import { getServerSession } from "next-auth";
 import AssigneeSelect from "./AssigneeSelect";
+import { cache } from "react";
 
 type Props = {
   params: { id: string };
 };
-
+const fetchUser = cache((issueId: number) =>
+  prisma.issue.findUnique({
+    where: { id: issueId },
+  })
+);
 const IssueDetailPage = async ({ params: { id } }: Props) => {
   const session = await getServerSession(authOptions);
 
-  const issue = await prisma.issue.findUnique({
-    where: {
-      id: Number(id),
-    },
-  });
+  const issue = await fetchUser(parseInt(id));
   if (!issue) return notFound();
   return (
     <Grid columns={{ initial: "1", sm: "4" }} gap="5">
@@ -39,11 +40,7 @@ const IssueDetailPage = async ({ params: { id } }: Props) => {
   );
 };
 export async function generateMetadata({ params }: Props) {
-  const issue = await prisma.issue.findUnique({
-    where: {
-      id: parseInt(params.id),
-    },
-  });
+  const issue = await fetchUser(parseInt(params.id));
   return {
     title: issue?.title,
     description: "Details of issue " + issue?.id,
