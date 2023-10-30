@@ -16,7 +16,7 @@ const AssigneeSelect = ({ issue }: { issue: Issue }) => {
         defaultValue={issue.assignedToUserId || "false"}
         onValueChange={async (userId) => {
           try {
-            await axios.patch("/api/issues3/" + issue.id, {
+            await axios.patch("/api/issues/" + issue.id, {
               assignedToUserId: userId === "false" ? null : userId,
             });
           } catch (error) {
