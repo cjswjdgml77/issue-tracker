@@ -1,9 +1,8 @@
 import prisma from "@/prisma/client";
-import LatestIssues from "./LatestIssues";
-import Pagenation from "./components/Pagenation";
-import IssueSummary from "./IssueSummery";
-import IssueChart from "./IssueChart";
 import { Flex, Grid } from "@radix-ui/themes";
+import IssueChart from "./IssueChart";
+import IssueSummary from "./IssueSummery";
+import LatestIssues from "./LatestIssues";
 
 export default async function Home() {
   const open = await prisma.issue.count({ where: { status: "OPEN" } });
